@@ -11,6 +11,7 @@
     - [5️⃣ Development Workflow](#5️⃣-development-workflow)
   - [React Router: Modern API Overview](#react-router-modern-api-overview)
     - [Example: Setting Up a Basic Router](#example-setting-up-a-basic-router)
+    - [Example: Setting Up AppLayout](#example-setting-up-applayout)
       - [Key Points:](#key-points)
 
 ## 📋 Development Plan for Fast React Pizza
@@ -100,6 +101,35 @@ function App() {
 }
 
 export default App;
+```
+
+### Example: Setting Up AppLayout
+
+```jsx
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/menu", element: <Menu /> },
+    ],
+  },
+]);
+
+import { Outlet } from "react-router-dom";
+
+function AppLayout() {
+  return (
+    <div>
+      <Header />
+      <main>
+        // Render whatever is the current nested route
+        <Outlet />
+      </main>
+      <CartOverview />
+    </div>
+  );
+}
 ```
 
 ---

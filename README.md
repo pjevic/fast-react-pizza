@@ -3,14 +3,14 @@
 # 🍕 Fast React Pizza 🍕
 
 - [🍕 Fast React Pizza 🍕](#-fast-react-pizza-)
-  - [## 📋 Development Plan for Fast React Pizza](#--development-plan-for-fast-react-pizza)
+  - [📋 Development Plan for Fast React Pizza](#-development-plan-for-fast-react-pizza)
     - [1️⃣ Application Requirements and Features](#1️⃣-application-requirements-and-features)
     - [2️⃣ Pages and Routing](#2️⃣-pages-and-routing)
     - [3️⃣ Features and State Management](#3️⃣-features-and-state-management)
     - [4️⃣ Tech Stack](#4️⃣-tech-stack)
     - [5️⃣ Development Workflow](#5️⃣-development-workflow)
 
-## ## 📋 Development Plan for Fast React Pizza
+## 📋 Development Plan for Fast React Pizza
 
 ### 1️⃣ Application Requirements and Features
 
@@ -50,6 +50,9 @@
 | **Cart**            | Local (UI)       | Cart details stored in app state.                                       |
 | **Order**           | Remote (API)     | Order data sent and fetched via API.                                    |
 
+> **Note:**  
+> _React Router v6.4_ is used to explore the "render-as-you-fetch" approach, which allows preloading data via loaders before rendering a route. While it doesn't persist state like a traditional state management tool, it's suitable for handling data-fetching use cases in this project. In the next project, we plan to use `React Query` for advanced remote state management.
+
 ---
 
 ### 4️⃣ Tech Stack
@@ -59,9 +62,6 @@
 | **Routing**       | `React Router v6.4` |
 | **Styling**       | `tailwindcss`       |
 | **UI State Mgmt** | `Redux`             |
-
-> **Note:**  
-> _React Router v6.4_ is used to explore the "render-as-you-fetch" approach, which allows preloading data via loaders before rendering a route. While it doesn't persist state like a traditional state management tool, it's suitable for handling data-fetching use cases in this project. In the next project, we plan to use `React Query` for advanced remote state management.
 
 ---
 

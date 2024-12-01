@@ -9,6 +9,9 @@
     - [3️⃣ Features and State Management](#3️⃣-features-and-state-management)
     - [4️⃣ Tech Stack](#4️⃣-tech-stack)
     - [5️⃣ Development Workflow](#5️⃣-development-workflow)
+  - [React Router: Modern API Overview](#react-router-modern-api-overview)
+    - [Example: Setting Up a Basic Router](#example-setting-up-a-basic-router)
+      - [Key Points:](#key-points)
 
 ## 📋 Development Plan for Fast React Pizza
 
@@ -72,5 +75,41 @@
 3. Implement static UI using mock data.
 4. Connect UI with state and API.
 5. Test features and deploy.
+
+---
+
+## React Router: Modern API Overview
+
+Starting with **v6.4**, React Router introduces new, powerful APIs such as **data loaders**, **actions**, and **fetchers**. To leverage these features, you must create a router using the `createBrowserRouter` function and provide it to the app through `RouterProvider`.
+
+### Example: Setting Up a Basic Router
+
+```jsx
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Home from "./ui/Home";
+import Menu from "./features/menu/Menu";
+
+const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "/menu", element: <Menu /> },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+```
+
+---
+
+#### Key Points:
+
+1. **Declarative Routes**: Routes are defined as an array of objects.
+2. **Centralized Configuration**: All routing logic is centralized for clarity and maintainability.
+3. **Flexible Features**: This setup is ready to incorporate loaders, actions, and fetchers as the app grows.
+
+> For more information, see the [React Router Documentation](https://reactrouter.com/home/).
 
 ---

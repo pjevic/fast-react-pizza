@@ -22,6 +22,9 @@
   - [🚥 Displaying Loading Indicator](#-displaying-loading-indicator)
     - [🚀 Implementation](#-implementation)
     - [📌 Key Advantages](#-key-advantages-1)
+  - [⚠️ Handling Errors With Error Elements](#️-handling-errors-with-error-elements)
+    - [🚀 Set Up Error Elements in Router Configuration](#-set-up-error-elements-in-router-configuration)
+    - [📌 Key Advantages](#-key-advantages-2)
 
 ## 📋 Development Plan for Fast React Pizza
 
@@ -220,6 +223,8 @@ export default function Menu() {
 - **Simplified Logic**: Centralizing data fetching within routes reduces the complexity in components.
 - **Better User Experience**: Eliminates empty states while data loads, providing a smoother experience.
 
+---
+
 ## 🚥 Displaying Loading Indicator
 
 In React Router, you can use the `useNavigation` hook to track the navigation state. This allows you to determine whether the application is _idle_, _loading_, or _submitting_. This navigation state applies to the entire application, not just individual pages, providing a global loading state for the router.
@@ -258,3 +263,36 @@ export default function AppLayout() {
 - **Global Loading State**: Tracks loading for the entire application, not just individual pages.
 - **Improved User Experience**: Shows a loading indicator when transitioning between routes or submitting data.
 - **Simplified Logic**: The navigation state is handled globally, reducing the need for multiple loading states in individual components.
+
+---
+
+## ⚠️ Handling Errors With Error Elements
+
+In React Router, you can define `errorElement` in the router configuration to handle errors globally or for specific routes. When an error occurs—whether in a loader, an action, or while rendering a component—the error will bubble up to the parent route unless it's handled at the specific route level. This way, instead of rendering the usual components, an error component will be shown.
+
+### 🚀 Set Up Error Elements in Router Configuration
+
+Define the `errorElement` at the route level or parent level to display custom error pages or components when errors occur.
+
+```jsx
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/menu", element: <Menu />, loader: menuLoader, errorElement: <Error /> },
+    ],
+  },
+]);
+```
+
+---
+
+### 📌 Key Advantages
+
+- **Centralized Error Handling**: You can define a default error element for the whole application or customize it for specific routes.
+- **Graceful Fallback**: Instead of crashing the app, errors are caught and handled with an error component, providing a better user experience.
+- **Enhanced Debugging**: By using a dedicated error component, you can log error details and provide user-friendly error messages.
+
+---

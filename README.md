@@ -25,6 +25,11 @@
   - [⚠️ Handling Errors With Error Elements](#️-handling-errors-with-error-elements)
     - [🚀 Set Up Error Elements in Router Configuration](#-set-up-error-elements-in-router-configuration)
     - [📌 Key Advantages](#-key-advantages-2)
+  - [📝 Writing Data With React Router "Actions"](#-writing-data-with-react-router-actions)
+    - [🛒 Example: Creating an Order with React Router Actions](#-example-creating-an-order-with-react-router-actions)
+    - [⚡ Action Function to Handle Form Submission](#-action-function-to-handle-form-submission)
+    - [🚦 Updating Router Configuration](#-updating-router-configuration)
+    - [📌 Key Advantages](#-key-advantages-3)
 
 ## 📋 Development Plan for Fast React Pizza
 
@@ -294,5 +299,87 @@ const router = createBrowserRouter([
 - **Centralized Error Handling**: You can define a default error element for the whole application or customize it for specific routes.
 - **Graceful Fallback**: Instead of crashing the app, errors are caught and handled with an error component, providing a better user experience.
 - **Enhanced Debugging**: By using a dedicated error component, you can log error details and provide user-friendly error messages.
+
+---
+
+## 📝 Writing Data With React Router "Actions"
+
+Actions in React Router provide a clean way to manage remote server state using `action` functions and `forms` that are wired to routes. Whenever a form is submitted, React Router automatically calls the corresponding action function and passes the submitted request data to it.
+
+### 🛒 Example: Creating an Order with React Router Actions
+
+Below is an example of how we can manage an order creation with a `<Form>` and React Router’s action handling. We use a `<Form>` component, where we can use an <input type="hidden"> to pass additional data to the action function behind the scenes.
+
+```jsx
+export default function CreateOrder() {
+  const cart = fakeCart;
+
+  return (
+    <div>
+      <h2>Ready to order? Let&apos;s go!</h2>
+
+      <Form method="POST">
+        <div>
+          <label>First Name</label>
+          <input type="text" name="customer" required />
+        </div>
+
+        <button>Order now</button>
+
+        <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+      </Form>
+    </div>
+  );
+}
+```
+
+### ⚡ Action Function to Handle Form Submission
+
+In the `action` function, we can handle the submitted form data and send it to the server or API. The `action` function processes the form submission, manipulates the data as needed, and sends it to the API to create the new order.
+
+```jsx
+export async function action({ request }) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  // Creating the order object with additional logic (e.g., parsing cart)
+  const order = {
+    ...data,
+    cart: JSON.parse(data.cart),
+    priority: data.priority === "on",
+  };
+
+  // Creating the new order by calling the API
+  const newOrder = await createOrder(order);
+
+  // Redirecting to the new order's page after it's successfully created
+  return redirect(`/order/${newOrder.id}`);
+}
+```
+
+### 🚦 Updating Router Configuration
+
+In order for React Router to recognize the action and route, we need to set up the router configuration with the action function. The action function will be linked to the `/order/new` route, which will handle the order creation.
+
+```jsx
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/order/new", element: <CreateOrder />, action: createOrderAction },
+    ],
+  },
+]);
+```
+
+---
+
+### 📌 Key Advantages
+
+- **No boilerplate code**: It's easy to get data from the `<Form>` without any JavaScript or onSubmit handlers.
+- **State management**: We didn’t have to create any state variables for input values or loading state.
+- **Seamless server communication**: The `action` function automatically handles form submission and server communication.
 
 ---

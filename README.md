@@ -9,16 +9,19 @@
     - [3️⃣ Features and State Management](#3️⃣-features-and-state-management)
     - [4️⃣ Tech Stack](#4️⃣-tech-stack)
     - [5️⃣ Development Workflow](#5️⃣-development-workflow)
-  - [React Router: Modern API Overview](#react-router-modern-api-overview)
-    - [Example: Setting Up a Basic Router](#example-setting-up-a-basic-router)
-    - [Example: Setting Up AppLayout](#example-setting-up-applayout)
-      - [Key Points:](#key-points)
+  - [🌐 React Router: Modern API Overview](#-react-router-modern-api-overview)
+    - [🛤️ Example: Setting Up a Basic Router](#️-example-setting-up-a-basic-router)
+    - [🖼️ Example: Setting Up AppLayout](#️-example-setting-up-applayout)
+      - [🔑 Key Points](#-key-points)
   - [🛠️ Strategy: Render-As-You-Fetch](#️-strategy-render-as-you-fetch)
     - [🚀 Implementation Steps](#-implementation-steps)
       - [1️⃣ **Create a Loader Function**](#1️⃣-create-a-loader-function)
       - [2️⃣ Attach the Loader to a Route](#2️⃣-attach-the-loader-to-a-route)
       - [3️⃣ Use the Loader Data in the Component](#3️⃣-use-the-loader-data-in-the-component)
     - [📌 Key Advantages](#-key-advantages)
+  - [🚥 Displaying Loading Indicator](#-displaying-loading-indicator)
+    - [🚀 Implementation](#-implementation)
+    - [📌 Key Advantages](#-key-advantages-1)
 
 ## 📋 Development Plan for Fast React Pizza
 
@@ -85,11 +88,13 @@
 
 ---
 
-## React Router: Modern API Overview
+## 🌐 React Router: Modern API Overview
 
 Starting with **v6.4**, React Router introduces new, powerful APIs such as **data loaders**, **actions**, and **fetchers**. To leverage these features, you must create a router using the `createBrowserRouter` function and provide it to the app through `RouterProvider`.
 
-### Example: Setting Up a Basic Router
+### 🛤️ Example: Setting Up a Basic Router
+
+Set up a basic router with two routes: the home page (`/`) and the menu page (`/menu`).
 
 ```jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -109,12 +114,14 @@ function App() {
 export default App;
 ```
 
-### Example: Setting Up AppLayout
+### 🖼️ Example: Setting Up AppLayout
+
+Define a layout component for shared elements like headers, footers, or sidebars, and use nested routes with `Outlet` to render specific page components.
 
 ```jsx
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: <AppLayout />, // Common layout for all routes
     children: [
       { path: "/", element: <Home /> },
       { path: "/menu", element: <Menu /> },
@@ -129,7 +136,7 @@ function AppLayout() {
     <div>
       <Header />
       <main>
-        <Outlet /> // Render whatever is the current nested route
+        <Outlet /> {/* Render the current nested route */}
       </main>
       <CartOverview />
     </div>
@@ -139,11 +146,11 @@ function AppLayout() {
 
 ---
 
-#### Key Points:
+#### 🔑 Key Points
 
-1. **Declarative Routes**: Routes are defined as an array of objects.
-2. **Centralized Configuration**: All routing logic is centralized for clarity and maintainability.
-3. **Flexible Features**: This setup is ready to incorporate loaders, actions, and fetchers as the app grows.
+- **Declarative Routes**: Routes are defined as an array of objects.
+- **Centralized Configuration**: All routing logic is centralized for clarity and maintainability.
+- **Flexible Features**: This setup is ready to incorporate loaders, actions, and fetchers as the app grows.
 
 > For more information, see the [React Router Documentation](https://reactrouter.com/home/).
 
@@ -154,6 +161,8 @@ function AppLayout() {
 React Router introduces a strategy called **Render-As-You-Fetch**, enabling data fetching to start simultaneously with route matching. This eliminates **data loading waterfalls**—where components render first and fetch data later—by integrating data fetching directly into the routing process.
 
 With this strategy, React Router not only matches components to URLs but also provides the required data for each page upfront.
+
+---
 
 ### 🚀 Implementation Steps
 
@@ -203,8 +212,49 @@ export default function Menu() {
 }
 ```
 
+---
+
 ### 📌 Key Advantages
 
 - **Improved Performance**: Preloading data reduces page load times by avoiding delays from sequential fetches.
 - **Simplified Logic**: Centralizing data fetching within routes reduces the complexity in components.
 - **Better User Experience**: Eliminates empty states while data loads, providing a smoother experience.
+
+## 🚥 Displaying Loading Indicator
+
+In React Router, you can use the `useNavigation` hook to track the navigation state. This allows you to determine whether the application is _idle_, _loading_, or _submitting_. This navigation state applies to the entire application, not just individual pages, providing a global loading state for the router.
+
+### 🚀 Implementation
+
+The `useNavigation` hook provides access to the current navigation state. By checking if the state is "loading", you can conditionally display a loading indicator.
+
+```jsx
+import { Outlet, useNavigation } from "react-router-dom";
+
+import Header from "./Header";
+import Loader from "./Loader";
+
+export default function AppLayout() {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+  console.log(navigation);
+
+  return (
+    <div className="layout">
+      {isLoading && <Loader />}
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
+}
+```
+
+---
+
+### 📌 Key Advantages
+
+- **Global Loading State**: Tracks loading for the entire application, not just individual pages.
+- **Improved User Experience**: Shows a loading indicator when transitioning between routes or submitting data.
+- **Simplified Logic**: The navigation state is handled globally, reducing the need for multiple loading states in individual components.

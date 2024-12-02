@@ -30,6 +30,7 @@
     - [⚡ Action Function to Handle Form Submission](#-action-function-to-handle-form-submission)
     - [🚦 Updating Router Configuration](#-updating-router-configuration)
     - [📌 Key Advantages](#-key-advantages-3)
+  - [📚 Resources \& Tools](#-resources--tools)
 
 ## 📋 Development Plan for Fast React Pizza
 
@@ -383,3 +384,7 @@ const router = createBrowserRouter([
 - **Seamless server communication**: The `action` function automatically handles form submission and server communication.
 
 ---
+
+## 📚 Resources & Tools
+
+- **Phone Number Validator**: Used the phone number validator regex from [UI Bakery Regex Library](https://uibakery.io/regex-library/phone-number) to handle phone number validation in the project.

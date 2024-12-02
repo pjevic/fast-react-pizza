@@ -13,6 +13,12 @@
     - [Example: Setting Up a Basic Router](#example-setting-up-a-basic-router)
     - [Example: Setting Up AppLayout](#example-setting-up-applayout)
       - [Key Points:](#key-points)
+  - [🛠️ Strategy: Render-As-You-Fetch](#️-strategy-render-as-you-fetch)
+    - [🚀 Implementation Steps](#-implementation-steps)
+      - [1️⃣ **Create a Loader Function**](#1️⃣-create-a-loader-function)
+      - [2️⃣ Attach the Loader to a Route](#2️⃣-attach-the-loader-to-a-route)
+      - [3️⃣ Use the Loader Data in the Component](#3️⃣-use-the-loader-data-in-the-component)
+    - [📌 Key Advantages](#-key-advantages)
 
 ## 📋 Development Plan for Fast React Pizza
 
@@ -123,8 +129,7 @@ function AppLayout() {
     <div>
       <Header />
       <main>
-        // Render whatever is the current nested route
-        <Outlet />
+        <Outlet /> // Render whatever is the current nested route
       </main>
       <CartOverview />
     </div>
@@ -143,3 +148,63 @@ function AppLayout() {
 > For more information, see the [React Router Documentation](https://reactrouter.com/home/).
 
 ---
+
+## 🛠️ Strategy: Render-As-You-Fetch
+
+React Router introduces a strategy called **Render-As-You-Fetch**, enabling data fetching to start simultaneously with route matching. This eliminates **data loading waterfalls**—where components render first and fetch data later—by integrating data fetching directly into the routing process.
+
+With this strategy, React Router not only matches components to URLs but also provides the required data for each page upfront.
+
+### 🚀 Implementation Steps
+
+#### 1️⃣ **Create a Loader Function**
+
+The loader is an asynchronous function that fetches the data needed for a specific route. Here, we fetch the menu data:
+
+```jsx
+export async function loader() {
+  const menu = await getMenu(); // Fetch menu data from an API
+  return menu; // Return the fetched data
+}
+```
+
+#### 2️⃣ Attach the Loader to a Route
+
+Associate the loader function with the `/menu` route to preload the menu data when navigating to this page.
+
+```jsx
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />, // Common layout for all routes
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/menu", element: <Menu />, loader: loader }, // Menu page with data loader
+    ],
+  },
+]);
+```
+
+#### 3️⃣ Use the Loader Data in the Component
+
+Within the component, use React Router's `useLoaderData` hook to access the pre-fetched data and render it:
+
+```jsx
+import { useLoaderData } from "react-router-dom";
+
+export default function Menu() {
+  const menu = useLoaderData(); // Access loader-provided data
+  return (
+    <ul>
+      {menu.map((pizza) => (
+        <MenuItem key={pizza.id} pizza={pizza} />
+      ))}
+    </ul>
+  );
+}
+```
+
+### 📌 Key Advantages
+
+- **Improved Performance**: Preloading data reduces page load times by avoiding delays from sequential fetches.
+- **Simplified Logic**: Centralizing data fetching within routes reduces the complexity in components.
+- **Better User Experience**: Eliminates empty states while data loads, providing a smoother experience.

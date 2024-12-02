@@ -15,7 +15,7 @@
       - [🔑 Key Points](#-key-points)
   - [🛠️ Strategy: Render-As-You-Fetch](#️-strategy-render-as-you-fetch)
     - [🚀 Implementation Steps](#-implementation-steps)
-      - [1️⃣ **Create a Loader Function**](#1️⃣-create-a-loader-function)
+      - [1️⃣ Create a Loader Function](#1️⃣-create-a-loader-function)
       - [2️⃣ Attach the Loader to a Route](#2️⃣-attach-the-loader-to-a-route)
       - [3️⃣ Use the Loader Data in the Component](#3️⃣-use-the-loader-data-in-the-component)
     - [📌 Key Advantages](#-key-advantages)
@@ -174,7 +174,7 @@ With this strategy, React Router not only matches components to URLs but also pr
 
 ### 🚀 Implementation Steps
 
-#### 1️⃣ **Create a Loader Function**
+#### 1️⃣ Create a Loader Function
 
 The loader is an asynchronous function that fetches the data needed for a specific route. Here, we fetch the menu data:
 

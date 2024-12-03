@@ -399,3 +399,12 @@ const router = createBrowserRouter([
 - **Phone Number Validator**: Used the phone number validator regex from [UI Bakery Regex Library](https://uibakery.io/regex-library/phone-number) to handle phone number validation in the project.
 
 - **CSS Loaders**: Explore 100+ CSS loaders for your next project, created by Afif, available at [dev.to - 100 CSS Loaders](https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje).
+
+- **Emoji Favicon**: Use emojis as favicons with this handy inline SVG technique. Example:
+  ```html
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>"
+  />
+  ```
+  Learn more at [CSS-Tricks - Emoji as a Favicon](https://css-tricks.com/emoji-as-a-favicon/).

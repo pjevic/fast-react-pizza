@@ -287,7 +287,12 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/menu", element: <Menu />, loader: menuLoader, errorElement: <Error /> },
+      {
+        path: "/menu",
+        element: <Menu />,
+        loader: menuLoader,
+        errorElement: <Error />,
+      },
     ],
   },
 ]);
@@ -369,7 +374,11 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/order/new", element: <CreateOrder />, action: createOrderAction },
+      {
+        path: "/order/new",
+        element: <CreateOrder />,
+        action: createOrderAction,
+      },
     ],
   },
 ]);
@@ -388,3 +397,5 @@ const router = createBrowserRouter([
 ## 📚 Resources & Tools
 
 - **Phone Number Validator**: Used the phone number validator regex from [UI Bakery Regex Library](https://uibakery.io/regex-library/phone-number) to handle phone number validation in the project.
+
+- **CSS Loaders**: Explore 100+ CSS loaders for your next project, created by Afif, available at [dev.to - 100 CSS Loaders](https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje).

@@ -3,11 +3,11 @@ import { deleteItem } from "./cartSlice";
 
 import Button from "../../ui/Button";
 
-function DeleteItem({ pizzaID }) {
+function DeleteItem({ pizzaId }) {
   const dispatch = useDispatch();
 
   return (
-    <Button type="small" onClick={() => dispatch(deleteItem(pizzaID))}>
+    <Button type="small" onClick={() => dispatch(deleteItem(pizzaId))}>
       Delete
     </Button>
   );

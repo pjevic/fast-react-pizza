@@ -16,10 +16,8 @@ function MenuItem({ pizza }) {
   const isInCart = currentQuantity > 0;
 
   function handleAddToCart() {
-    console.log(id);
-
     const newItem = {
-      pizzaID: id,
+      pizzaId: id,
       name,
       quantity: 1,
       unitPrice,
@@ -52,10 +50,10 @@ function MenuItem({ pizza }) {
           {isInCart && (
             <div className="flex items-center gap-3 sm:gap-6">
               <UpdateItemQuantity
-                pizzaID={id}
+                pizzaId={id}
                 currentQuantity={currentQuantity}
               />
-              <DeleteItem pizzaID={id} />
+              <DeleteItem pizzaId={id} />
             </div>
           )}
           {!soldOut && !isInCart && (

@@ -7,8 +7,8 @@ import UpdateItemQuantity from "./UpdateItemQuantity";
 import { getCurrentQuantity } from "./cartSlice";
 
 function CartItem({ item }) {
-  const { pizzaID, name, quantity, totalPrice } = item;
-  const currentQuantity = useSelector(getCurrentQuantity(pizzaID));
+  const { pizzaId, name, quantity, totalPrice } = item;
+  const currentQuantity = useSelector(getCurrentQuantity(pizzaId));
 
   return (
     <li className="py-3 sm:flex sm:items-center sm:justify-between">
@@ -18,10 +18,10 @@ function CartItem({ item }) {
       <div className="flex items-center justify-between sm:gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
         <UpdateItemQuantity
-          pizzaID={pizzaID}
+          pizzaId={pizzaId}
           currentQuantity={currentQuantity}
         />
-        <DeleteItem pizzaID={pizzaID} />
+        <DeleteItem pizzaId={pizzaId} />
       </div>
     </li>
   );

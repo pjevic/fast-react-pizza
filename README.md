@@ -418,7 +418,8 @@ const cartTotalPrice = useSelector(getTotalCartPrice);
 
 For large-scale applications, you can use the [Reselect library](https://github.com/reduxjs/reselect) to optimize selector functions by memoizing their results. This helps improve performance when dealing with complex or expensive computations.
 
-**Note**: The Reselect library is not used in this project but is a valuable tool for scaling applications.
+> **Note:**
+> The Reselect library is not used in this project but is a valuable tool for scaling applications.
 
 ---
 

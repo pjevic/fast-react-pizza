@@ -44,6 +44,8 @@ export const {
   clearCart,
 } = cartSlice.actions;
 
+export const getCart = (state) => state.cart.cart;
+
 export const getTotalCartQuantity = (state) =>
   state.cart.cart.reduce(
     (totalQuantity, pizza) => totalQuantity + pizza.quantity,

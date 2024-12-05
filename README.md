@@ -30,6 +30,9 @@
     - [⚡ Action Function to Handle Form Submission](#-action-function-to-handle-form-submission)
     - [🚦 Updating Router Configuration](#-updating-router-configuration)
     - [📌 Key Advantages](#-key-advantages-3)
+  - [🛠️ Redux Selector Funcitons](#️-redux-selector-funcitons)
+    - [🚀 Example Selector Function](#-example-selector-function)
+      - [📋 Optimization with Reselect](#-optimization-with-reselect)
   - [📚 Resources \& Tools](#-resources--tools)
 
 ## 📋 Development Plan for Fast React Pizza
@@ -391,6 +394,31 @@ const router = createBrowserRouter([
 - **No boilerplate code**: It's easy to get data from the `<Form>` without any JavaScript or onSubmit handlers.
 - **State management**: We didn’t have to create any state variables for input values or loading state.
 - **Seamless server communication**: The `action` function automatically handles form submission and server communication.
+
+---
+
+## 🛠️ Redux Selector Funcitons
+
+In Redux, it's recommended to create **selector functions** in a centralized location, often referred to as a "slice," and to prefix their names with the `get` keyword for clarity and consistency.
+
+### 🚀 Example Selector Function
+
+```jsx
+export const getTotalCartPrice = (state) =>
+  state.cart.cart.reduce((price, pizza) => price + pizza.price, 0);
+```
+
+You can then use this selector with the useSelector hook in your components:
+
+```jsx
+const cartTotalPrice = useSelector(getTotalCartPrice);
+```
+
+#### 📋 Optimization with Reselect
+
+For large-scale applications, you can use the [Reselect library](https://github.com/reduxjs/reselect) to optimize selector functions by memoizing their results. This helps improve performance when dealing with complex or expensive computations.
+
+**Note**: The Reselect library is not used in this project but is a valuable tool for scaling applications.
 
 ---
 

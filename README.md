@@ -33,7 +33,7 @@
   - [🛠️ Redux Selector Funcitons](#️-redux-selector-funcitons)
     - [🚀 Example Selector Function](#-example-selector-function)
       - [📋 Optimization with Reselect](#-optimization-with-reselect)
-  - [Redux Thunk](#redux-thunk)
+  - [🌐 Redux Thunk](#-redux-thunk)
     - [1️⃣ Initial State](#1️⃣-initial-state)
     - [2️⃣ Slice with Reducers and Extra Reducers](#2️⃣-slice-with-reducers-and-extra-reducers)
     - [3️⃣ Async Thunk Action](#3️⃣-async-thunk-action)
@@ -429,7 +429,7 @@ For large-scale applications, you can use the [Reselect library](https://github.
 
 ---
 
-## Redux Thunk
+## 🌐 Redux Thunk
 
 Redux Async Thunk is a middleware in Redux that allows you to handle asynchronous operations (e.g., fetching data from APIs) within your Redux store. It is commonly used for side effects such as API calls, which are outside the scope of pure Redux reducers.
 
@@ -441,9 +441,9 @@ The `initialState` defines the structure of the state managed by the slice.
 const initialState = {
   username: "",
   status: "idle", // penidig | fulfield
-  position: {}, // Holds geolocation data (latitude and longitude)
-  address: "", // Holds the user's resolved address
-  error: "", // Stores any error message if the async operation fails
+  position: {},
+  address: "",
+  error: "",
 };
 ```
 
@@ -460,22 +460,22 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     updateName(state, action) {
-      state.username = action.payload; // Updates the `username` field
+      state.username = action.payload;
     },
   },
   extraReducers: (builder) =>
     builder
       .addCase(fetchAddress.pending, (state) => {
-        state.status = "loading"; // Indicates the async operation has started
+        state.status = "loading";
       })
       .addCase(fetchAddress.fulfilled, (state, action) => {
-        state.position = action.payload.position; // Updates geolocation
-        state.address = action.payload.address; // Updates address
-        state.status = "idle"; // Marks operation as complete
+        state.position = action.payload.position;
+        state.address = action.payload.address;
+        state.status = "idle";
       })
       .addCase(fetchAddress.rejected, (state, action) => {
-        state.status = "error"; // Indicates an error occurred
-        state.error = action.error.message; // Stores error details
+        state.status = "error";
+        state.error = action.error.message;
       }),
 });
 ```

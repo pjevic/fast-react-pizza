@@ -39,6 +39,7 @@
     - [3️⃣ Async Thunk Action](#3️⃣-async-thunk-action)
     - [🚀 Example Use in a Component](#-example-use-in-a-component)
     - [📌 Key Advantages](#-key-advantages-4)
+  - [Fetching Data Without Navigation - useFethcher](#fetching-data-without-navigation---usefethcher)
   - [📚 Resources \& Tools](#-resources--tools)
 
 ## 📋 Development Plan for Fast React Pizza
@@ -546,6 +547,27 @@ function UserAddress() {
 - **Data Flow**: The thunk's resolved value automatically becomes the payload for the `fulfilled` action, simplifying data flow.
 
 ---
+
+## Fetching Data Without Navigation - useFethcher
+
+`useFetcher` allows you to fetch data in one component without navigating away from the current page.
+
+```jsx
+import { useFetcher } from "react-router-dom";
+
+export default function Order() {
+  const order = useLoaderData();
+  const fetcher = useFetcher();
+
+  useEffect(
+    function () {
+      if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+    },
+    [fetcher],
+  );
+  // . . .
+}
+```
 
 ## 📚 Resources & Tools
 

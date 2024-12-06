@@ -2,6 +2,8 @@
 
 # 🍕 Fast React Pizza 🍕
 
+**Fast React Pizza** is `my learning project` from the Ultimate React Course by my favorite teacher, Jonas Schmedtmann.
+
 - [🍕 Fast React Pizza 🍕](#-fast-react-pizza-)
   - [📋 Development Plan for Fast React Pizza](#-development-plan-for-fast-react-pizza)
     - [1️⃣ Application Requirements and Features](#1️⃣-application-requirements-and-features)
@@ -39,7 +41,13 @@
     - [3️⃣ Async Thunk Action](#3️⃣-async-thunk-action)
     - [🚀 Example Use in a Component](#-example-use-in-a-component)
     - [📌 Key Advantages](#-key-advantages-4)
-  - [Fetching Data Without Navigation - useFethcher](#fetching-data-without-navigation---usefethcher)
+  - [✨ Fetching Data Without Navigation - useFethcher](#-fetching-data-without-navigation---usefethcher)
+  - [✨ Updating Data Without Navigation - useFethcher](#-updating-data-without-navigation---usefethcher)
+    - [🚀 Example Usage](#-example-usage)
+      - [🧩 Component: Updating an Order](#-component-updating-an-order)
+      - [🔧 Server Action: Handling the Update](#-server-action-handling-the-update)
+      - [🗺️ Router Configuration](#️-router-configuration)
+    - [🛠️ How It Works](#️-how-it-works)
   - [📚 Resources \& Tools](#-resources--tools)
 
 ## 📋 Development Plan for Fast React Pizza
@@ -548,7 +556,7 @@ function UserAddress() {
 
 ---
 
-## Fetching Data Without Navigation - useFethcher
+## ✨ Fetching Data Without Navigation - useFethcher
 
 `useFetcher` allows you to fetch data in one component without navigating away from the current page.
 
@@ -568,6 +576,83 @@ export default function Order() {
   // . . .
 }
 ```
+
+---
+
+## ✨ Updating Data Without Navigation - useFethcher
+
+When working with React Router, there are scenarios where you need to update data on the server without causing navigation or refreshing the page. The `useFetcher` hook allows you to perform such updates efficiently, enabling seamless interaction with your application's backend.
+
+The `useFetcher` hook in React Router is a powerful tool for submitting data or forms to the server without triggering a navigation. It can be used to:
+
+- Perform form submissions programmatically.
+- Handle server actions directly from a component.
+- Update backend data dynamically.
+
+### 🚀 Example Usage
+
+#### 🧩 Component: Updating an Order
+
+In this example, we update an order's priority status by submitting a PATCH request using fetcher.Form:
+
+```jsx
+import { useFetcher } from "react-router-dom";
+
+export default function UpdateOrder({ order }) {
+  const fetcher = useFetcher();
+
+  return (
+    <fetcher.Form method="PATCH" className="text-right">
+      <Button type="primary">Make priority</Button>
+    </fetcher.Form>
+  );
+}
+```
+
+#### 🔧 Server Action: Handling the Update
+
+The action function handles the server-side update logic when the form is submitted:
+
+```jsx
+export async function action({ request, params }) {
+  const data = { priority: true }; // Data to be updated on the server
+  await updateOrder(params.orderId, data); // Update logic for the backend
+  return null; // Return response (null here indicates no navigation is needed)
+}
+```
+
+#### 🗺️ Router Configuration
+
+To enable the useFetcher functionality, configure the router to include the appropriate action for the route. This ensures the action function is triggered on form submission.
+
+```jsx
+import { action as updateOrderAction } from "./features/order/UpdateOrder";
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      { path: "/", element: <Home /> },
+      {
+        path: "/order/:orderId",
+        element: <Order />,
+        loader: orderLoader,
+        errorElement: <Error />,
+        action: updateOrderAction, // Link the server action to this route
+      },
+    ],
+  },
+]);
+```
+
+### 🛠️ How It Works
+
+1. **`fetcher.Form`**: Renders a form that submits data to the backend without navigation. The `method` specifies the HTTP method (`PATCH` in this case).
+2. **`action` Function**: Handles the server-side logic for updating data. It processes the request and performs the necessary updates.
+3. **Router Integration**: The router links the `action` function to the route, ensuring the correct logic is executed when the form is submitted.
+
+---
 
 ## 📚 Resources & Tools
 

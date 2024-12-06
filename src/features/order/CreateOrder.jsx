@@ -1,15 +1,15 @@
 /** @format */
 import { useState } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "../../store/Store";
 
 import { createOrder } from "../../services/apiRestaurant";
 import { clearCart, getCart, getTotalCartPrice } from "../cart/cartSlice";
-
 import { formatCurrency, isValidPhone } from "../../utils/helpers";
 
 import Button from "../../ui/Button";
+import { fetchAddress } from "../user/userSlice";
 
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
@@ -18,6 +18,7 @@ function CreateOrder() {
   const totalCartPrice = useSelector(getTotalCartPrice);
   const navigation = useNavigation();
   const formErrors = useActionData();
+  const dispatch = useDispatch();
 
   const isSubmitting = navigation.state === "submitting";
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
@@ -28,6 +29,8 @@ function CreateOrder() {
       <h2 className="mb-8 text-xl font-semibold">
         Ready to order? Let&apos;s go!
       </h2>
+
+      <button onClick={() => dispatch(fetchAddress())}>Get position</button>
 
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
